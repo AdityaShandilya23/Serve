@@ -11,7 +11,7 @@ class Client:
         print("Connected...")
         self.start()
 
-    def send_msg(self, msg):
+    def send(self, msg):
         message = str(msg).encode()
         msg_length = len(message)
         send_length = str(msg_length).encode()
@@ -19,7 +19,7 @@ class Client:
         self.socket.send(send_length)
         self.socket.send(message)
 
-    def recv_msg(self):
+    def recv(self):
         msg_length = self.socket.recv(1024).strip()
         if msg_length:
             data = self.socket.recv(int(msg_length))
@@ -55,7 +55,7 @@ class Server:
     def add_valid_ip(self, address):
         self.valid_ips.append(str(address))
 
-    def send_msg(self, msg, conn):
+    def send(self, msg, conn):
         message = str(msg).encode()
         msg_length = len(message)
         send_length = str(msg_length).encode()
@@ -63,7 +63,7 @@ class Server:
         conn.send(send_length)
         conn.send(message)
 
-    def receive(self, conn):
+    def recv(self, conn):
         msg_length = conn.recv(1024).strip()
         if msg_length:
             data = conn.recv(int(msg_length))
